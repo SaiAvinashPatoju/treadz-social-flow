@@ -1,5 +1,6 @@
+
 import { useState } from "react";
-import { User, Settings, Heart, MessageCircle, Share } from "lucide-react";
+import { User, Settings, Heart, MessageCircle, Share, Bell } from "lucide-react";
 import BottomNavigation from "@/components/BottomNavigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
