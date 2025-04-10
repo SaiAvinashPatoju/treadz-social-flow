@@ -1,161 +1,125 @@
-
 import { useState } from "react";
-import { User, Settings, Bell } from "lucide-react";
+import { User, Settings, Heart, MessageCircle, Share } from "lucide-react";
 import BottomNavigation from "@/components/BottomNavigation";
-import PostCard from "@/components/PostCard";
-
-// Sample data for demonstration
-const posts = [
-  {
-    id: 1,
-    username: "jessica_design",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    timestamp: "2h ago",
-    content: "Just launched my new portfolio website! Check it out and let me know what you think 🎉",
-    image: "https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&q=80",
-    likes: 124,
-    comments: 23,
-  },
-  {
-    id: 2,
-    username: "travel_mike",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    timestamp: "5h ago",
-    content: "Beautiful sunset at the beach today. Sometimes you need to take a moment and enjoy the simple things in life.",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80",
-    likes: 231,
-    comments: 42,
-  },
-  {
-    id: 3,
-    username: "fitness_sarah",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
-    timestamp: "Yesterday",
-    content: "Completed my 30-day workout challenge! Feeling stronger than ever 💪",
-    likes: 98,
-    comments: 15,
-  },
-];
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const HomeScreen = () => {
-  const [activeTab, setActiveTab] = useState("feed");
   const [showProfile, setShowProfile] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-
+  
   return (
-    <div className="min-h-screen bg-black pb-16">
-      <header className="sticky top-0 z-40 bg-black border-b border-white/10 px-4 py-3 flex justify-between items-center">
-        <button
-          onClick={() => {
-            setShowProfile(true);
-            setShowSettings(false);
-          }}
-          className="w-10 h-10 rounded-full bg-treadz-purple/20 flex items-center justify-center"
-        >
-          <User className="w-5 h-5 text-white" />
-        </button>
+    <div className="min-h-screen bg-white text-black pb-16">
+      {/* Header */}
+      <header className="sticky top-0 z-40 bg-white px-4 py-3 flex justify-between items-center border-b border-gray-200">
+        <h1 className="text-xl font-bold">Thredz</h1>
         
-        <h1 className="text-xl font-bold text-white">Treadz</h1>
-        
-        <button
-          onClick={() => {
-            setShowSettings(true);
-            setShowProfile(false);
-          }}
-          className="w-10 h-10 rounded-full bg-treadz-purple/20 flex items-center justify-center"
-        >
-          <Settings className="w-5 h-5 text-white" />
-        </button>
+        <div className="flex items-center space-x-2">
+          <button className="w-8 h-8 flex items-center justify-center rounded-full">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+          
+          <button
+            onClick={() => {
+              setShowProfile(true);
+              setShowSettings(false);
+            }}
+            className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center"
+          >
+            <span className="text-white text-sm">@</span>
+          </button>
+          
+          <button
+            onClick={() => {
+              setShowSettings(true);
+              setShowProfile(false);
+            }}
+            className="w-8 h-8 flex items-center justify-center"
+          >
+            <Settings className="w-5 h-5" />
+          </button>
+        </div>
       </header>
       
-      <div className="px-4 py-3 flex border-b border-white/10">
-        <button
-          className={`flex-1 py-2 text-center ${
-            activeTab === "feed"
-              ? "text-treadz-purple border-b-2 border-treadz-purple"
-              : "text-white"
-          }`}
-          onClick={() => setActiveTab("feed")}
-        >
-          Feed
-        </button>
-        <button
-          className={`flex-1 py-2 text-center ${
-            activeTab === "stats"
-              ? "text-treadz-purple border-b-2 border-treadz-purple"
-              : "text-white"
-          }`}
-          onClick={() => setActiveTab("stats")}
-        >
-          Stats
-        </button>
-      </div>
-      
       {/* Main content */}
-      <div className="px-4 py-3">
-        {activeTab === "feed" ? (
-          <div className="space-y-4">
-            {posts.map((post) => (
-              <PostCard
-                key={post.id}
-                username={post.username}
-                avatar={post.avatar}
-                timestamp={post.timestamp}
-                content={post.content}
-                image={post.image}
-                likes={post.likes}
-                comments={post.comments}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="p-4 text-white">
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="bg-treadz-purple/20 p-4 rounded-lg text-center">
-                <h3 className="text-3xl font-bold mb-1">453</h3>
-                <p className="text-sm">Total Likes</p>
-              </div>
-              <div className="bg-treadz-purple/20 p-4 rounded-lg text-center">
-                <h3 className="text-3xl font-bold mb-1">80</h3>
-                <p className="text-sm">Total Comments</p>
-              </div>
+      <main>
+        {/* Create post section */}
+        <div className="bg-purple-300 p-4 mx-4 my-3 rounded-xl">
+          <div className="flex items-center">
+            <Avatar className="w-8 h-8 bg-gray-200">
+              <AvatarFallback>UN</AvatarFallback>
+            </Avatar>
+            <div className="ml-3 flex-1">
+              <p className="text-sm font-medium">user name <span className="text-xs font-normal text-gray-600">7 hours ago</span></p>
             </div>
-            
-            <h3 className="text-xl mb-4">Activity Overview</h3>
-            <div className="space-y-3">
-              <div className="bg-black border border-white/10 p-3 rounded-md">
-                <div className="flex justify-between items-center mb-2">
-                  <span>Posts</span>
-                  <span>12</span>
-                </div>
-                <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                  <div className="bg-treadz-purple h-full rounded-full" style={{ width: "60%" }}></div>
-                </div>
+            <button className="px-3 py-1 bg-green-100 text-green-800 text-xs rounded-md">post</button>
+          </div>
+        </div>
+        
+        {/* Tabs section */}
+        <div className="px-4">
+          <div className="w-full my-2">
+            <button className="w-full py-2 bg-purple-400 text-white rounded-md">
+              following
+            </button>
+          </div>
+        </div>
+        
+        {/* Posts */}
+        <div className="space-y-4 px-4 pb-4">
+          {/* Post 1 */}
+          <div className="bg-purple-100 p-4 rounded-xl">
+            <div className="flex items-center mb-2">
+              <Avatar className="w-8 h-8 bg-gray-200">
+                <AvatarFallback>ON</AvatarFallback>
+              </Avatar>
+              <div className="ml-3 flex-1">
+                <p className="text-sm font-medium">other user name <span className="text-xs font-normal text-gray-600">7 hours ago</span></p>
               </div>
-              <div className="bg-black border border-white/10 p-3 rounded-md">
-                <div className="flex justify-between items-center mb-2">
-                  <span>Comments</span>
-                  <span>80</span>
-                </div>
-                <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                  <div className="bg-treadz-purple h-full rounded-full" style={{ width: "40%" }}></div>
-                </div>
-              </div>
-              <div className="bg-black border border-white/10 p-3 rounded-md">
-                <div className="flex justify-between items-center mb-2">
-                  <span>Likes Given</span>
-                  <span>230</span>
-                </div>
-                <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-                  <div className="bg-treadz-purple h-full rounded-full" style={{ width: "85%" }}></div>
-                </div>
-              </div>
+              <button className="text-gray-400">
+                <Heart className="w-5 h-5" />
+              </button>
+            </div>
+            <p className="text-sm mb-3">text content</p>
+            <div className="flex justify-between mt-2">
+              <button className="text-gray-500">
+                <MessageCircle className="w-5 h-5" />
+              </button>
+              <button className="text-gray-500">
+                <Share className="w-5 h-5" />
+              </button>
             </div>
           </div>
-        )}
-      </div>
+          
+          {/* Post 2 */}
+          <div className="bg-purple-100 p-4 rounded-xl">
+            <div className="flex items-center mb-2">
+              <Avatar className="w-8 h-8 bg-gray-200">
+                <AvatarFallback>ON</AvatarFallback>
+              </Avatar>
+              <div className="ml-3 flex-1">
+                <p className="text-sm font-medium">other user name <span className="text-xs font-normal text-gray-600">7 hours ago</span></p>
+              </div>
+              <button className="text-gray-400">
+                <Heart className="w-5 h-5" />
+              </button>
+            </div>
+            <p className="text-sm mb-3">text content</p>
+            <div className="flex justify-between mt-2">
+              <button className="text-gray-500">
+                <MessageCircle className="w-5 h-5" />
+              </button>
+              <button className="text-gray-500">
+                <Share className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
       
-      {/* Profile Panel */}
       {showProfile && (
         <div className="fixed inset-0 z-50 bg-black/70 flex">
           <div className="w-4/5 h-full bg-black border-r border-treadz-purple/30 animate-slide-in-left p-4">
@@ -210,7 +174,6 @@ const HomeScreen = () => {
         </div>
       )}
       
-      {/* Settings Panel */}
       {showSettings && (
         <div className="fixed inset-0 z-50 bg-black/70 flex">
           <div className="w-4/5 h-full bg-black border-r border-treadz-purple/30 animate-slide-in-left p-4">
@@ -271,7 +234,29 @@ const HomeScreen = () => {
         </div>
       )}
       
-      <BottomNavigation />
+      <div className="fixed bottom-0 left-0 right-0 h-16 bg-purple-400 flex items-center justify-around z-50">
+        <button className="flex flex-col items-center w-1/3 text-white">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </button>
+        
+        <button className="flex flex-col items-center w-1/3 text-white">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </button>
+        
+        <button className="flex flex-col items-center w-1/3 text-white">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   );
 };

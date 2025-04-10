@@ -35,8 +35,8 @@ const SplashScreen = () => {
           {showContent ? (
             <>
               <motion.div
-                initial={{ y: 40, opacity: 0 }}
-                animate={{ y: 0, opacity: 1, x: -60 }}
+                initial={{ opacity: 0, y: 0, x: 0 }}
+                animate={{ opacity: 1, y: 0, x: -60 }}
                 transition={{ 
                   duration: 0.8, 
                   type: "spring",
@@ -44,14 +44,14 @@ const SplashScreen = () => {
                 }}
                 className="flex items-center justify-start w-full mb-6"
               >
-                <h1 className="text-4xl font-bold text-black">Threadz</h1>
+                <h1 className="text-4xl font-bold text-white">Threadz</h1>
               </motion.div>
               
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className="text-black text-center max-w-xs mb-16 font-medium"
+                className="text-white text-center max-w-xs mb-16 font-medium ml-[-60px]"
               >
                 Connect, share, and explore with your community
               </motion.p>
@@ -63,7 +63,7 @@ const SplashScreen = () => {
               transition={{ duration: 0.5 }}
               className="mb-12"
             >
-              <h1 className="text-5xl font-bold text-black">Threadz</h1>
+              <h1 className="text-5xl font-bold text-white">Threadz</h1>
             </motion.div>
           )}
         </div>
