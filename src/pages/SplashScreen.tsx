@@ -15,6 +15,39 @@ const SplashScreen = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Letter animation variants
+  const letterVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.6,
+        type: "spring",
+        stiffness: 100
+      }
+    })
+  };
+
+  // Tagline animation variants
+  const taglineVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.7,
+        duration: 0.5,
+        type: "spring"
+      }
+    }
+  };
+
+  // Split the text for letter animation
+  const text = "Treadz";
+  const letters = Array.from(text);
+
   return (
     <div 
       className="min-h-screen flex flex-col relative overflow-hidden"
@@ -37,42 +70,34 @@ const SplashScreen = () => {
       
       {/* Animated content */}
       <div className="flex-1 flex flex-col items-center justify-center z-10 px-6">
-        <div className="w-full flex flex-col items-center">
-          {showContent ? (
-            <>
-              <motion.div
-                initial={{ opacity: 0, y: 0, x: 0 }}
-                animate={{ opacity: 1, y: 0, x: -60 }}
-                transition={{ 
-                  duration: 0.8, 
-                  type: "spring",
-                  stiffness: 100
-                }}
-                className="flex items-center justify-start w-full mb-6"
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center justify-center mb-16"
+        >
+          {/* Letter by letter animation */}
+          <div className="flex mb-4">
+            {letters.map((letter, index) => (
+              <motion.span
+                key={index}
+                custom={index}
+                variants={letterVariants}
+                className="text-6xl font-bold text-white tracking-wide inline-block"
+                style={{ color: "#fff" }}
               >
-                <h1 className="text-4xl font-bold text-white tracking-wide">Treadz</h1>
-              </motion.div>
-              
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="text-white text-center max-w-xs mb-16 font-medium ml-[-60px] tracking-wide"
-              >
-                Connect, share, and explore with your community
-              </motion.p>
-            </>
-          ) : (
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="mb-12"
-            >
-              <h1 className="text-5xl font-bold text-white tracking-wide">Treadz</h1>
-            </motion.div>
-          )}
-        </div>
+                {letter}
+              </motion.span>
+            ))}
+          </div>
+          
+          {/* Tagline animation */}
+          <motion.p
+            variants={taglineVariants}
+            className="text-white text-center max-w-xs font-medium tracking-wide"
+          >
+            Connect, share, and explore with your community
+          </motion.p>
+        </motion.div>
       </div>
       
       {/* Buttons with modern design */}
